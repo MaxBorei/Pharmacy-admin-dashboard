@@ -1,0 +1,39 @@
+.hero {
+  padding: 28px 0 0 100px;
+  position: relative;
+}
+.hero_title_label {
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-20);
+  letter-spacing: -0.03em;
+  color: var(--main-black);
+}
+.hero_label_container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 226px;
+}
+
+.hero_img_label {
+  width: 44px;
+  height: 44px;
+}
+.hero_title {
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-54);
+  line-height: 1.11;
+  color: var(--main-black);
+  width: 614px;
+}
+.hero_span {
+  color: var(--accent);
+}
+
+.hero_img_title {
+  width: 179px;
+  height: 175px;
+  position: absolute;
+  top: 194px;
+  left: 516px;
+}
