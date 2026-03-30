@@ -1,0 +1,27 @@
+:root {
+  --main-black: #1d1e21;
+  --accent: #59b17a;
+  --accent-2: #e85050;
+  --text: #dcdddf;
+  --background: #e7f1ed;
+  --background-2: #f7f8fa;
+  --background-3: #fff;
+
+  --font-family: "Inter", sans-serif;
+
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+
+  --fs-12: clamp(8px, 0.83vw, 12px);
+  --fs-14: clamp(10px, 0.97vw, 14px);
+  --fs-16: clamp(12px, 1.11vw, 16px);
+  --fs-18: clamp(14px, 1.25vw, 18px);
+  --fs-20: clamp(16px, 1.39vw, 20px);
+  --fs-24: clamp(17px, 1.67vw, 24px);
+  --fs-28: clamp(18px, 1.94vw, 28px);
+  --fs-40: clamp(28px, 2.78vw, 40px);
+  --fs-48: clamp(32px, 3.33vw, 48px);
+  --fs-54: clamp(36px, 3.89vw, 54px);
+  --fs-80: clamp(42px, 5.56vw, 80px);
+}
