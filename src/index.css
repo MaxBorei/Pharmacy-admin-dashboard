@@ -2,3 +2,4 @@
 @import "./styles/global.css";
 @import "./components/App/App.module.css";
 @import "./components/Hero/Hero.module.css";
+@import "./pages/NotFoundPage/NotFoundPage.module.css";

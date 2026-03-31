@@ -1,6 +1,31 @@
+import { useNavigate } from "react-router-dom";
 import css from "./Hero.module.css";
+import { login } from "../../lib/auth";
+import { useState } from "react";
 
 export const Hero = () => {
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const form = e.currentTarget;
+
+    const email = (form.elements.namedItem("email") as HTMLInputElement).value;
+    const password = (form.elements.namedItem("password") as HTMLInputElement)
+      .value;
+    setErrorMessage("");
+    try {
+      const response = await login({ email, password });
+
+      localStorage.setItem("accessToken", response.data.accessToken);
+
+      navigate("/dashboard");
+    } catch {
+      setErrorMessage("Invalid email or password");
+    }
+  };
+
   return (
     <section className={css.hero} aria-label="Hero">
       <div className={css.hero_inner}>
@@ -25,17 +50,19 @@ export const Hero = () => {
               alt="white round pill"
             />
           </div>
-          <div className={css.hero_container_input}>
-            <form className={css.hero_form}>
+          <div className={css.hero_container_form}>
+            <form className={css.hero_form} onSubmit={handleSubmit}>
               <div className={css.hero_container_input}>
                 <input
+                  name="email"
                   type="email"
-                  placeholder="Email adress"
+                  placeholder="Email address"
                   autoComplete="email"
                   inputMode="email"
                   className={css.hero_input}
                 />
                 <input
+                  name="password"
                   className={css.hero_input}
                   type="password"
                   placeholder="Password"
@@ -44,6 +71,7 @@ export const Hero = () => {
               <button className={css.hero_input_btn} type="submit">
                 Log in
               </button>
+              {errorMessage && <p className={css.hero_error}>{errorMessage}</p>}
             </form>
           </div>
         </div>

@@ -7,6 +7,6 @@ interface ContainerProps {
   className?: string;
 }
 
-export default function Container({ children, className }: ContainerProps) {
+export const Container = ({ children, className }: ContainerProps) => {
   return <div className={clsx(css.container, className)}>{children}</div>;
-}
+};

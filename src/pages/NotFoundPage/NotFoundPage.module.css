@@ -1,0 +1,7 @@
+.not_found_title {
+  font-size: var(--fs-24);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
