@@ -1,5 +1,15 @@
 .hero {
-  padding: 28px 0 0 100px;
+  padding: 28px 0;
+  background: var(--background-2);
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+.hero_inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 100px;
   position: relative;
 }
 .hero_title_label {
@@ -8,7 +18,7 @@
   letter-spacing: -0.03em;
   color: var(--main-black);
 }
-.hero_label_container {
+.hero_container_label {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -34,6 +44,78 @@
   width: 179px;
   height: 175px;
   position: absolute;
-  top: 194px;
+  top: 166px;
   left: 516px;
+}
+.hero_container_content {
+  display: flex;
+  gap: 150px;
+}
+.hero_container_input {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.hero_form {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin-top: 9px;
+  width: 323px;
+}
+.hero_input {
+  border: 1px solid rgba(29, 30, 33, 0.1);
+  border-radius: 60px;
+  width: 100%;
+  height: 44px;
+  background: var(--background-3);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-12);
+  line-height: 1.5;
+  outline: none;
+  padding: 13px 18px;
+}
+.hero_input::placeholder {
+  color: var(--muted);
+}
+.hero_input:focus {
+  border-color: var(--accent);
+}
+
+.hero_input_btn {
+  border-radius: 60px;
+  padding: 13px 141px;
+  width: auto;
+  height: 44px;
+  font-weight: var(--fw-medium);
+  font-size: var(--fs-14);
+  line-height: 1.29;
+  color: var(--background-3);
+  background: var(--accent);
+}
+.hero_input_btn:hover {
+  background: var(--accent-hover);
+}
+.hero_container_img_graf {
+  position: absolute;
+  bottom: -88px;
+  right: -186px;
+  width: 465px;
+  height: 345px;
+}
+.hero_derstive_img_1 {
+  position: absolute;
+  right: 0;
+}
+
+.hero_derstive_img_2 {
+  position: absolute;
+  left: 0;
+  top: 46px;
+}
+
+.hero_derstive_img_3 {
+  position: absolute;
+  bottom: 0;
+  left: 27px;
 }

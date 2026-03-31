@@ -22,6 +22,7 @@ button,
 textarea,
 select {
   font: inherit;
+  color: var(--main-black);
 }
 
 button {
@@ -47,4 +48,5 @@ body {
   line-height: 1.5;
   font-size: var(--fs-16);
   font-weight: var(--fw-medium);
+  color: var(--main-black);
 }

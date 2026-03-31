@@ -1,13 +1,7 @@
-// import css from "./App.module.css";
-// import Container from "../container/container";
-import Hero from "../Hero/Hero";
+import AppRoutes from "../../routes/AppRoutes";
 
 const App = () => {
-  return (
-    <>
-      <Hero />
-    </>
-  );
+  return <AppRoutes />;
 };
 
 export default App;
