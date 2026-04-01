@@ -2,27 +2,41 @@ import { useNavigate } from "react-router-dom";
 import css from "./Hero.module.css";
 import { login } from "../../lib/auth";
 import { useState } from "react";
+import Loader from "../Loader/Loader";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { loginSchema } from "../../schemas/loginSchema";
+
+type FormData = {
+  email: string;
+  password: string;
+};
 
 export const Hero = () => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const [isLoading, setIsLoading] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: yupResolver(loginSchema),
+  });
 
-    const form = e.currentTarget;
-
-    const email = (form.elements.namedItem("email") as HTMLInputElement).value;
-    const password = (form.elements.namedItem("password") as HTMLInputElement)
-      .value;
+  const onSubmit = async (data: FormData) => {
+    const email = data.email;
+    const password = data.password;
     setErrorMessage("");
     try {
+      setIsLoading(true);
       const response = await login({ email, password });
-
       localStorage.setItem("accessToken", response.data.accessToken);
-
       navigate("/dashboard");
     } catch {
       setErrorMessage("Invalid email or password");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -51,27 +65,56 @@ export const Hero = () => {
             />
           </div>
           <div className={css.hero_container_form}>
-            <form className={css.hero_form} onSubmit={handleSubmit}>
+            <form className={css.hero_form} onSubmit={handleSubmit(onSubmit)}>
+              {isLoading && <Loader />}
               <div className={css.hero_container_input}>
-                <input
-                  name="email"
-                  type="email"
-                  placeholder="Email address"
-                  autoComplete="email"
-                  inputMode="email"
-                  className={css.hero_input}
-                />
-                <input
-                  name="password"
-                  className={css.hero_input}
-                  type="password"
-                  placeholder="Password"
-                />
+                <div className="hero_field_input">
+                  <input
+                    {...register("email", {
+                      required: "Email Address is required",
+                    })}
+                    type="email"
+                    placeholder="Email address"
+                    autoComplete="email"
+                    inputMode="email"
+                    className={css.hero_input}
+                    disabled={isLoading}
+                  />
+                  <div className="hero_container_error">
+                    <p className={css.hero_error_message}>
+                      {errors.email?.message}
+                    </p>
+                  </div>
+                </div>
+                <div className="hero_field_input">
+                  <input
+                    {...register("password", {
+                      required: "Password is required",
+                    })}
+                    className={css.hero_input}
+                    type="password"
+                    placeholder="Password"
+                    disabled={isLoading}
+                  />
+                  <div className="hero_container_error">
+                    <p className={css.hero_error_message}>
+                      {errors.password?.message}
+                    </p>
+                  </div>
+                </div>
               </div>
-              <button className={css.hero_input_btn} type="submit">
-                Log in
-              </button>
-              {errorMessage && <p className={css.hero_error}>{errorMessage}</p>}
+              <div>
+                <button
+                  className={css.hero_input_btn}
+                  type="submit"
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Wait..." : "Log in"}
+                </button>
+                {errorMessage && (
+                  <p className={css.hero_error_message}>{errorMessage}</p>
+                )}
+              </div>
             </form>
           </div>
         </div>

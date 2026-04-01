@@ -11,6 +11,7 @@
   width: 100%;
   padding: 0 100px;
   position: relative;
+  max-height: 800px;
 }
 .hero_title_label {
   font-weight: var(--fw-semibold);
@@ -54,12 +55,12 @@
 .hero_container_input {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 2px;
 }
 .hero_form {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 28px;
   margin-top: 9px;
   width: 323px;
 }
@@ -119,8 +120,13 @@
   bottom: 0;
   left: 27px;
 }
-.hero_error {
-  margin-top: 12px;
-  font-size: var(--fs-14);
+.hero_error_message {
+  margin-top: 2px;
+  font-size: var(--fs-10);
   color: var(--accent-2);
+  line-height: 1;
+  margin-left: 20px;
+}
+.hero_container_error {
+  min-height: 12px;
 }

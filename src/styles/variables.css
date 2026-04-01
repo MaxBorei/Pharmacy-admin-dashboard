@@ -15,6 +15,7 @@
   --fw-medium: 500;
   --fw-semibold: 600;
 
+  --fs-10: clamp(7px, 0.83vw, 10px);
   --fs-12: clamp(8px, 0.83vw, 12px);
   --fs-14: clamp(10px, 0.97vw, 14px);
   --fs-16: clamp(12px, 1.11vw, 16px);
