@@ -121,7 +121,6 @@
   left: 27px;
 }
 .hero_error_message {
-  margin-top: 2px;
   font-size: var(--fs-10);
   color: var(--accent-2);
   line-height: 1;
@@ -129,4 +128,19 @@
 }
 .hero_container_error {
   min-height: 12px;
+}
+.hero_demo_btn {
+  border-radius: 60px;
+  padding: 13px 50px;
+  width: 100%;
+  height: 44px;
+  font-weight: var(--fw-medium);
+  font-size: var(--fs-14);
+  line-height: 1.29;
+  color: var(--accent);
+  background: var(--background-3);
+}
+.hero_demo_btn:hover {
+  color: var(--background-3);
+  background: var(--accent-hover);
 }

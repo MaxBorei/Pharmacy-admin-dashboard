@@ -19,11 +19,22 @@ export const Hero = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<FormData>({
     resolver: yupResolver(loginSchema),
   });
+  const handleFillDemo = () => {
+    setValue("email", "user@gmail.com", {
+      shouldValidate: true,
+      shouldDirty: true,
+    });
 
+    setValue("password", "123456789", {
+      shouldValidate: true,
+      shouldDirty: true,
+    });
+  };
   const onSubmit = async (data: FormData) => {
     const email = data.email;
     const password = data.password;
@@ -104,16 +115,28 @@ export const Hero = () => {
                 </div>
               </div>
               <div>
+                <div>
+                  <button
+                    className={css.hero_input_btn}
+                    type="submit"
+                    disabled={isLoading}
+                  >
+                    {isLoading ? "Wait..." : "Log in"}
+                  </button>
+                  <div className="hero_container_error">
+                    {errorMessage && (
+                      <p className={css.hero_error_message}>{errorMessage}</p>
+                    )}
+                  </div>
+                </div>
                 <button
-                  className={css.hero_input_btn}
-                  type="submit"
+                  className={css.hero_demo_btn}
+                  type="button"
+                  onClick={handleFillDemo}
                   disabled={isLoading}
                 >
-                  {isLoading ? "Wait..." : "Log in"}
+                  Use demo account
                 </button>
-                {errorMessage && (
-                  <p className={css.hero_error_message}>{errorMessage}</p>
-                )}
               </div>
             </form>
           </div>
