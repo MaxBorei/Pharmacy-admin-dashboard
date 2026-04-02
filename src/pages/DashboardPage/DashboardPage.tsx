@@ -1,4 +1,5 @@
 import { Navigate } from "react-router-dom";
+import { RootLayout } from "../../components/Layout/Layout";
 
 export const DashboardPage = () => {
   const token = localStorage.getItem("accessToken");
@@ -6,5 +7,5 @@ export const DashboardPage = () => {
     return <Navigate to="/login" replace />;
   }
 
-  return <h1>DashboardPage</h1>;
+  return <RootLayout />;
 };
