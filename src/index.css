@@ -1,2 +1,9 @@
 @import "./styles/variables.css";
 @import "./styles/global.css";
+@import "./components/Hero/Hero.module.css";
+@import "./components/Header/Header.module.css";
+@import "./components/container/container.module.css";
+@import "./components/App/App.module.css";
+@import "./components/Layout/Layout.module.css";
+@import "./components/Loader/Loader.module.css";
+@import "./components/Sidebar/Sidebar.module.css";
