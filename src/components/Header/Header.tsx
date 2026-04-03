@@ -1,8 +1,27 @@
+import { useState } from "react";
+import { logout } from "../../lib/auth";
 import css from "./Header.module.css";
+import { useNavigate } from "react-router-dom";
+import Loader from "../Loader/Loader";
 
 export const Header = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    try {
+      setIsLoading(true);
+      await logout();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      localStorage.removeItem("accessToken");
+      navigate("/login");
+      setIsLoading(false);
+    }
+  };
   return (
     <div className={css.Header_section}>
+      {isLoading && <Loader />}
       <div className={css.Header_container_log}>
         <img
           className={css.Header_img_label}
@@ -23,11 +42,16 @@ export const Header = () => {
             <p className={css.Header_content_text}>vendor@gmail.com</p>
           </div>
         </div>
-        <div className={css.Header_container_img_logout}>
+        <button
+          className={css.Header_container_img_logout}
+          type="button"
+          onClick={handleLogout}
+          disabled={isLoading}
+        >
           <svg className={css.Header_svg_logout}>
             <use href="/sprite.svg#icon-majesticons_logout"></use>
           </svg>
-        </div>
+        </button>
       </div>
     </div>
   );

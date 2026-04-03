@@ -93,6 +93,7 @@
   line-height: 1.29;
   color: var(--background-3);
   background: var(--accent);
+  white-space: nowrap;
 }
 .hero_input_btn:hover {
   background: var(--accent-hover);

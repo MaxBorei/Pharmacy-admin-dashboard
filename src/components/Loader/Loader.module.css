@@ -60,14 +60,8 @@
   border: 0;
 }
 
-@keyframes loader-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .spinner {
-    animation: none;
+    animation-duration: 1s;
   }
 }

@@ -29,6 +29,9 @@
   align-items: center;
   justify-content: center;
 }
+.Header_container_img_logout:hover {
+  background: var(--accent-hover);
+}
 .Header_svg_logout {
   fill: var(--background-3);
   width: 13px;
