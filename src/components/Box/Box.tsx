@@ -1,6 +1,6 @@
 import React from "react";
 import clsx from "clsx";
-import css from "./Container.module.css";
+import css from "./Box.module.css";
 
 interface ContainerProps {
   children: React.ReactNode;
