@@ -1,3 +1,5 @@
+import { api } from "./api";
+
 type LoginPayload = {
   email: string;
   password: string;
@@ -10,8 +12,6 @@ type LoginResponse = {
     accessToken: string;
   };
 };
-
-import { api } from "./api";
 
 export const login = async (payload: LoginPayload) => {
   const { data } = await api.post<LoginResponse>("/login", payload);

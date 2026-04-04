@@ -2,8 +2,9 @@
 @import "./styles/global.css";
 @import "./components/Hero/Hero.module.css";
 @import "./components/Header/Header.module.css";
-@import "./components/Box/Box.module.css";
+@import "./components/Container/Container.module.css";
 @import "./components/App/App.module.css";
 @import "./components/Layout/Layout.module.css";
 @import "./components/Loader/Loader.module.css";
 @import "./components/Sidebar/Sidebar.module.css";
+@import "./pages/DashboardPage/DashboardPage.module.css";

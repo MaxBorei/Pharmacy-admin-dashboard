@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import css from "./Layout.module.css";
-import { Container } from "../Box/Box";
+import { Container } from "../Container/Container";
 import { Header } from "../Header/Header";
 import { Sidebar } from "../Sidebar/Sidebar";
 
@@ -16,7 +16,6 @@ export const RootLayout = () => {
           <Container>
             <div className={css.layout_container_content}>
               <Outlet />
-              <h1>Main</h1>
             </div>
           </Container>
         </main>

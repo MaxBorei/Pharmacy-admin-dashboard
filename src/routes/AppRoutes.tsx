@@ -7,6 +7,7 @@ import { SuppliersPage } from "../pages/SuppliersPage/SuppliersPage";
 import { CustomersPage } from "../pages/CustomersPage/CustomersPage";
 import { NotFoundPage } from "../pages/NotFoundPage/NotFoundPage";
 import { PrivateRoute } from "./PrivateRoutes";
+import { RootLayout } from "../components/Layout/Layout";
 
 export const AppRoutes = () => {
   return (
@@ -15,11 +16,13 @@ export const AppRoutes = () => {
       <Route path="/login" element={<LoginPage />} />
 
       <Route element={<PrivateRoute />}>
-        <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="/orders" element={<OrderPage />} />
-        <Route path="/products" element={<ProductsPage />} />
-        <Route path="/suppliers" element={<SuppliersPage />} />
-        <Route path="/customers" element={<CustomersPage />} />
+        <Route element={<RootLayout />}>
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/orders" element={<OrderPage />} />
+          <Route path="/products" element={<ProductsPage />} />
+          <Route path="/suppliers" element={<SuppliersPage />} />
+          <Route path="/customers" element={<CustomersPage />} />
+        </Route>
       </Route>
 
       <Route path="*" element={<NotFoundPage />} />
