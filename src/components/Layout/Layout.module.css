@@ -15,4 +15,5 @@
 
 .layout_container_main {
   flex: 1;
+  background: var(--background-2);
 }

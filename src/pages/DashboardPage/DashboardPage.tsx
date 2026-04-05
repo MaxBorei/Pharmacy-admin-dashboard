@@ -1,7 +1,8 @@
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import css from "./DashboardPage.module.css";
 import { getTotalInfo } from "../../lib/dashboard";
 import { useEffect, useState } from "react";
+// import axios from "axios";
 
 type DashboardData = {
   allProducts: number;
@@ -11,21 +12,36 @@ type DashboardData = {
 
 export const DashboardPage = () => {
   const [data, setData] = useState<DashboardData | null>(null);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getTotalInfo();
-      console.log(data);
-      setData(data);
+      try {
+        const data = await getTotalInfo();
+        setData(data);
+      } catch (error: unknown) {
+        if (
+          typeof error === "object" &&
+          error !== null &&
+          "response" in error
+        ) {
+          const err = error as {
+            response?: { status?: number };
+          };
+
+          if (err.response?.status === 401) {
+            localStorage.removeItem("accessToken");
+            navigate("/login", { replace: true });
+            return;
+          }
+        }
+
+        console.log(error);
+      }
     };
 
     fetchData();
-  }, []);
+  }, [navigate]);
 
-  const token = localStorage.getItem("accessToken");
-  if (!token) {
-    return <Navigate to="/login" replace />;
-  }
   return (
     <section className={css.dashboardPage}>
       <div className={css.dashboardPage_container_total_info}>

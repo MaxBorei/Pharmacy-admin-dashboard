@@ -1,7 +1,7 @@
 .Header_section {
   height: 80px;
   background: var(--background-2);
-  border-right: 1px solid rgba(29, 30, 33, 0.1);
+  border: 1px solid rgba(29, 30, 33, 0.1);
   display: flex;
   min-width: 100vh;
 }

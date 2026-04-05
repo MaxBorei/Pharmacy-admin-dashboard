@@ -1,6 +1,5 @@
 .dashboardPage {
   padding: 20px 0;
-  background: var(--background-2);
 }
 .dashboardPage_container_total_info {
   display: flex;
