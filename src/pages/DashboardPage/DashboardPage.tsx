@@ -2,7 +2,8 @@ import { useNavigate } from "react-router-dom";
 import css from "./DashboardPage.module.css";
 import { getTotalInfo } from "../../lib/dashboard";
 import { useEffect, useState } from "react";
-// import axios from "axios";
+import Loader from "../../components/Loader/Loader";
+type Key = "allProducts" | "allSuppliers" | "allCustomers";
 
 type DashboardData = {
   allProducts: number;
@@ -10,11 +11,29 @@ type DashboardData = {
   allCustomers: number;
 };
 
+type InfoDashboardItem = {
+  label: string;
+  key: Key;
+  icon: string;
+};
+
+const infoDashboard: InfoDashboardItem[] = [
+  {
+    label: "All products",
+    key: "allProducts",
+    icon: "icon-streamline_money",
+  },
+  { label: "All suppliers", key: "allSuppliers", icon: "icon-mdi_users" },
+  { label: "All customers", key: "allCustomers", icon: "icon-mdi_users" },
+];
+
 export const DashboardPage = () => {
   const [data, setData] = useState<DashboardData | null>(null);
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         const data = await getTotalInfo();
         setData(data);
@@ -34,8 +53,8 @@ export const DashboardPage = () => {
             return;
           }
         }
-
-        console.log(error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -44,46 +63,23 @@ export const DashboardPage = () => {
 
   return (
     <section className={css.dashboardPage}>
+      {isLoading && <Loader />}
       <div className={css.dashboardPage_container_total_info}>
-        <div className={css.dashboardPage_container_info}>
-          <div className={css.dashboardPage_container_svg_label}>
-            <svg className={css.dashboardPage_total_info_svg}>
-              <use href="/sprite.svg#icon-streamline_money"></use>
-            </svg>
-            <p className={css.dashboardPage_total_info_text}>All products</p>
+        {infoDashboard.map((item) => (
+          <div className={css.dashboardPage_container_info} key={item.key}>
+            <div className={css.dashboardPage_container_svg_label}>
+              <svg className={css.dashboardPage_total_info_svg}>
+                <use href={`/sprite.svg#${item.icon}`}></use>
+              </svg>
+              <p className={css.dashboardPage_total_info_text}>{item.label}</p>
+            </div>
+            <div className={css.dashboardPage_container_value}>
+              <p className={css.dashboardPage_value_text}>
+                {data?.[item.key] ?? 0}
+              </p>
+            </div>
           </div>
-          <div className={css.dashboardPage_container_value}>
-            <p className={css.dashboardPage_value_text}>
-              {data?.allProducts ?? 0}
-            </p>
-          </div>
-        </div>
-        <div className={css.dashboardPage_container_info}>
-          <div className={css.dashboardPage_container_svg_label}>
-            <svg className={css.dashboardPage_total_info_svg}>
-              <use href="/sprite.svg#icon-mdi_users"></use>
-            </svg>
-            <p className={css.dashboardPage_total_info_text}>All suppliers</p>
-          </div>
-          <div className={css.dashboardPage_container_value}>
-            <p className={css.dashboardPage_value_text}>
-              {data?.allSuppliers ?? 0}
-            </p>
-          </div>
-        </div>
-        <div className={css.dashboardPage_container_info}>
-          <div className={css.dashboardPage_container_svg_label}>
-            <svg className={css.dashboardPage_total_info_svg}>
-              <use href="/sprite.svg#icon-mdi_users"></use>
-            </svg>
-            <p className={css.dashboardPage_total_info_text}>All customers</p>
-          </div>
-          <div className={css.dashboardPage_container_value}>
-            <p className={css.dashboardPage_value_text}>
-              {data?.allCustomers ?? 0}
-            </p>
-          </div>
-        </div>
+        ))}
       </div>
     </section>
   );
