@@ -14,3 +14,19 @@ api.interceptors.request.use((config) => {
 
   return config;
 });
+
+api.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    const status = error.response?.status;
+
+    if (status === 401) {
+      localStorage.removeItem("accessToken");
+      window.location.href = "/login";
+    }
+
+    return Promise.reject(error);
+  },
+);

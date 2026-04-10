@@ -18,21 +18,7 @@ export const DashboardPage = () => {
         const data = await getTotalInfo();
         setData(data);
       } catch (error: unknown) {
-        if (
-          typeof error === "object" &&
-          error !== null &&
-          "response" in error
-        ) {
-          const err = error as {
-            response?: { status?: number };
-          };
-
-          if (err.response?.status === 401) {
-            localStorage.removeItem("accessToken");
-            navigate("/login", { replace: true });
-            return;
-          }
-        }
+        console.log(error);
       } finally {
         setIsLoading(false);
       }
