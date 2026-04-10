@@ -16,13 +16,14 @@ api.interceptors.request.use((config) => {
 });
 
 api.interceptors.response.use(
-  (response) => {
-    return response;
-  },
+  (response) => response,
   (error) => {
     const status = error.response?.status;
+    const url = error.config?.url;
 
-    if (status === 401) {
+    const isLoginRequest = url?.includes("/login");
+
+    if (status === 401 && !isLoginRequest) {
       localStorage.removeItem("accessToken");
       window.location.href = "/login";
     }

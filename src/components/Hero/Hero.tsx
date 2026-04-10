@@ -16,6 +16,7 @@ export const Hero = () => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const {
     register,
     handleSubmit,
@@ -43,7 +44,7 @@ export const Hero = () => {
       setIsLoading(true);
       const response = await login({ email, password });
       localStorage.setItem("accessToken", response.data.accessToken);
-      navigate("/dashboard");
+      navigate("/dashboard", { replace: true });
     } catch {
       setErrorMessage("Invalid email or password");
     } finally {
@@ -79,11 +80,9 @@ export const Hero = () => {
             <form className={css.hero_form} onSubmit={handleSubmit(onSubmit)}>
               {isLoading && <Loader />}
               <div className={css.hero_container_input}>
-                <div className="hero_field_input">
+                <div className={css.hero_field_input}>
                   <input
-                    {...register("email", {
-                      required: "Email Address is required",
-                    })}
+                    {...register("email")}
                     type="email"
                     placeholder="Email address"
                     autoComplete="email"
@@ -91,7 +90,7 @@ export const Hero = () => {
                     className={css.hero_input}
                     disabled={isLoading}
                   />
-                  <div className="hero_container_error">
+                  <div className={css.hero_container_error}>
                     <p className={css.hero_error_message}>
                       {errors.email?.message}
                     </p>
@@ -99,14 +98,26 @@ export const Hero = () => {
                 </div>
                 <div className="hero_field_input">
                   <input
-                    {...register("password", {
-                      required: "Password is required",
-                    })}
+                    {...register("password")}
                     className={css.hero_input}
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder="Password"
                     disabled={isLoading}
                   />
+                  <button
+                    type="button"
+                    className={css.hero_iconBtn}
+                    aria-label={
+                      showPassword ? "Hide password" : "Show password"
+                    }
+                    onClick={() => setShowPassword((prev) => !prev)}
+                  >
+                    <svg className={css.hero_ctaIcon} aria-hidden="true">
+                      <use
+                        href={`/sprite.svg#icon-${showPassword ? "eye" : "eye-off"}`}
+                      />
+                    </svg>
+                  </button>
                   <div className="hero_container_error">
                     <p className={css.hero_error_message}>
                       {errors.password?.message}

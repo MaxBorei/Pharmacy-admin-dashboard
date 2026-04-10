@@ -145,3 +145,36 @@
   color: var(--background-3);
   background: var(--accent-hover);
 }
+.hero_field_input {
+  position: relative;
+}
+.hero_iconBtn {
+  position: absolute;
+  top: 40%;
+  right: clamp(8px, 1.2vw, 16px);
+  transform: translateY(-50%);
+  width: clamp(32px, 3.2vw, 42px);
+  height: clamp(32px, 3.2vw, 42px);
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  cursor: pointer;
+  color: rgba(17, 16, 28, 0.55);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero_iconBtn:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+.hero_ctaIcon {
+  width: clamp(12px, 1vw, 20px);
+  height: clamp(12px, 1vw, 20px);
+  flex: 0 0 clamp(12px, 1vw, 20px);
+  display: block;
+
+  fill: var(--background-3);
+  stroke: var(--main-black);
+  stroke-width: 2px;
+}
