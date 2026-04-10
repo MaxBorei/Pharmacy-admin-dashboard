@@ -3,29 +3,9 @@ import css from "./DashboardPage.module.css";
 import { getTotalInfo } from "../../lib/dashboard";
 import { useEffect, useState } from "react";
 import Loader from "../../components/Loader/Loader";
-type Key = "allProducts" | "allSuppliers" | "allCustomers";
-
-type DashboardData = {
-  allProducts: number;
-  allSuppliers: number;
-  allCustomers: number;
-};
-
-type InfoDashboardItem = {
-  label: string;
-  key: Key;
-  icon: string;
-};
-
-const infoDashboard: InfoDashboardItem[] = [
-  {
-    label: "All products",
-    key: "allProducts",
-    icon: "icon-streamline_money",
-  },
-  { label: "All suppliers", key: "allSuppliers", icon: "icon-mdi_users" },
-  { label: "All customers", key: "allCustomers", icon: "icon-mdi_users" },
-];
+import { DashboardCardInfo } from "../../components/DashboardCardInfo/DashboardCardInfo";
+import type { DashboardData } from "../../lib/types/dashboard";
+import { infoDashboard } from "../../constants";
 
 export const DashboardPage = () => {
   const [data, setData] = useState<DashboardData | null>(null);
@@ -66,19 +46,12 @@ export const DashboardPage = () => {
       {isLoading && <Loader />}
       <div className={css.dashboardPage_container_total_info}>
         {infoDashboard.map((item) => (
-          <div className={css.dashboardPage_container_info} key={item.key}>
-            <div className={css.dashboardPage_container_svg_label}>
-              <svg className={css.dashboardPage_total_info_svg}>
-                <use href={`/sprite.svg#${item.icon}`}></use>
-              </svg>
-              <p className={css.dashboardPage_total_info_text}>{item.label}</p>
-            </div>
-            <div className={css.dashboardPage_container_value}>
-              <p className={css.dashboardPage_value_text}>
-                {data?.[item.key] ?? 0}
-              </p>
-            </div>
-          </div>
+          <DashboardCardInfo
+            key={item.key}
+            label={item.label}
+            icon={item.icon}
+            value={data?.[item.key] ?? 0}
+          />
         ))}
       </div>
     </section>
