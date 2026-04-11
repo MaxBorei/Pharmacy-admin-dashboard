@@ -45,7 +45,7 @@ ol {
 body {
   margin: 0;
   font-family: "Inter", sans-serif;
-  line-height: 1.5;
+  line-height: 1.13;
   font-size: var(--fs-16);
   font-weight: var(--fw-medium);
   color: var(--main-black);

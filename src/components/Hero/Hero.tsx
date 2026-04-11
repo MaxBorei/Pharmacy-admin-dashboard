@@ -46,7 +46,7 @@ export const Hero = () => {
       localStorage.setItem("accessToken", response.data.accessToken);
       navigate("/dashboard", { replace: true });
     } catch {
-      setErrorMessage("Invalid email or password");
+      setErrorMessage("Невірний пароль чи пошта");
     } finally {
       setIsLoading(false);
     }
@@ -78,7 +78,9 @@ export const Hero = () => {
           </div>
           <div className={css.hero_container_form}>
             <form className={css.hero_form} onSubmit={handleSubmit(onSubmit)}>
-              {isLoading && <Loader />}
+              {isLoading && (
+                <Loader message="Почекайте, завантаження може бути довшим(" />
+              )}
               <div className={css.hero_container_input}>
                 <div className={css.hero_field_input}>
                   <input

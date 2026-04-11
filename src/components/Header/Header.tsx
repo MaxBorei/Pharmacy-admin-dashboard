@@ -21,7 +21,9 @@ export const Header = () => {
   };
   return (
     <div className={css.Header_section}>
-      {isLoading && <Loader />}
+      {isLoading && (
+        <Loader message="Почекайте, завантаження може бути довшим(" />
+      )}
       <div className={css.Header_container_log}>
         <img
           className={css.Header_img_label}

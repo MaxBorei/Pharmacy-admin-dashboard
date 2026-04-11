@@ -29,7 +29,7 @@ export const DashboardPage = () => {
 
   return (
     <section className={css.dashboardPage}>
-      {isLoading && <Loader />}
+      {isLoading && <Loader message="Завантажуємо дані..." />}
       <div className={css.dashboardPage_container_total_info}>
         {infoDashboard.map((item) => (
           <DashboardCardInfo

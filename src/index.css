@@ -8,3 +8,4 @@
 @import "./components/Loader/Loader.module.css";
 @import "./components/Sidebar/Sidebar.module.css";
 @import "./pages/DashboardPage/DashboardPage.module.css";
+@import "./pages/OrdersPage/OrderPage.module.css";
