@@ -1,4 +1,5 @@
 import axios from "axios";
+import { refreshSession } from "./auth";
 
 export const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -17,15 +18,36 @@ api.interceptors.request.use((config) => {
 
 api.interceptors.response.use(
   (response) => response,
-  (error) => {
+  async (error) => {
     const status = error.response?.status;
+    const originalRequest = error.config;
+    if (!originalRequest) {
+      return Promise.reject(error);
+    }
     const url = error.config?.url;
-
     const isLoginRequest = url?.includes("/login");
+    const isRefreshRequest = url?.includes("/refresh");
+    const hasRetried = originalRequest._retry;
 
-    if (status === 401 && !isLoginRequest) {
-      localStorage.removeItem("accessToken");
-      window.location.href = "/login";
+    if (status === 401 && !isLoginRequest && !isRefreshRequest && !hasRetried) {
+      originalRequest._retry = true;
+      try {
+        await refreshSession();
+        const token = localStorage.getItem("accessToken");
+        if (token && originalRequest.headers) {
+          originalRequest.headers.Authorization = `Bearer ${token}`;
+          return api(originalRequest);
+        }
+        if (!token || !originalRequest.headers) {
+          localStorage.removeItem("accessToken");
+          window.location.href = "/login";
+          return;
+        }
+      } catch {
+        localStorage.removeItem("accessToken");
+        window.location.href = "/login";
+        return;
+      }
     }
 
     return Promise.reject(error);

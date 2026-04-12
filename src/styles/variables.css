@@ -10,6 +10,25 @@
   --background-2: #f7f8fa;
   --background-3: #fff;
 
+  --status-completed-bg: rgba(89, 177, 122, 0.1);
+
+  --status-confirmed: #8059e4;
+  --status-confirmed-bg: rgba(128, 89, 228, 0.1);
+
+  --status-pending: #f79042;
+  --status-pending-bg: rgba(247, 144, 66, 0.1);
+
+  --status-cancelled-bg: rgba(232, 80, 80, 0.1);
+
+  --status-processing: #70a6e8;
+  --status-processing-bg: rgba(112, 166, 232, 0.1);
+
+  --status-shipped: #1e3a8a;
+  --status-shipped-bg: rgba(30, 58, 138, 0.1);
+
+  --status-delivered: #22c55e;
+  --status-delivered-bg: rgba(34, 197, 94, 0.1);
+
   --font-family: "Inter", sans-serif;
 
   --fw-regular: 400;

@@ -45,31 +45,37 @@
 }
 .completed {
   color: var(--accent);
-  background: rgba(89, 177, 122, 0.1);
+  background: var(--status-completed-bg);
 }
+
 .confirmed {
-  color: #8059e4;
-  background: rgba(128, 89, 228, 0.1);
+  color: var(--status-confirmed);
+  background: var(--status-confirmed-bg);
 }
+
 .pending {
-  color: #f79042;
-  background: rgba(247, 144, 66, 0.1);
+  color: var(--status-pending);
+  background: var(--status-pending-bg);
 }
+
 .cancelled {
   color: var(--accent-2);
-  background: rgba(232, 80, 80, 0.1);
+  background: var(--status-cancelled-bg);
 }
+
 .processing {
-  color: #70a6e8;
-  background: rgba(112, 166, 232, 0.1);
+  color: var(--status-processing);
+  background: var(--status-processing-bg);
 }
+
 .shipped {
-  color: #1e3a8a;
-  background: rgba(30, 58, 138, 0.1);
+  color: var(--status-shipped);
+  background: var(--status-shipped-bg);
 }
+
 .delivered {
-  background: rgba(34, 197, 94, 0.1);
-  color: #22c55e;
+  color: var(--status-delivered);
+  background: var(--status-delivered-bg);
 }
 .delivered,
 .shipped,

@@ -1,8 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { logout } from "../../lib/auth";
 import css from "./Header.module.css";
 import { useNavigate } from "react-router-dom";
 import Loader from "../Loader/Loader";
+import { getUserInfo } from "../../lib/header";
+
+type UserInfoData = {
+  name: string;
+  email: string;
+};
 
 export const Header = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -19,6 +25,18 @@ export const Header = () => {
       setIsLoading(false);
     }
   };
+  const [data, setData] = useState<UserInfoData | null>(null);
+  useEffect(() => {
+    const userInfoFetch = async () => {
+      try {
+        const data = await getUserInfo();
+        setData(data);
+      } catch (error: unknown) {
+        console.log(error);
+      }
+    };
+    userInfoFetch();
+  }, []);
   return (
     <div className={css.Header_section}>
       {isLoading && (
@@ -37,11 +55,11 @@ export const Header = () => {
             <h2 className={css.Header_title}>Medicine store</h2>
           </div>
           <div className={css.Header_container_content_text}>
-            <p className={css.Header_content_text}>Dasboard</p>
+            <p className={css.Header_content_text}>{data?.name}</p>
             <svg className={css.Header_content_line}>
               <use href="/sprite.svg#icon-Vector-46"></use>
             </svg>
-            <p className={css.Header_content_text}>vendor@gmail.com</p>
+            <p className={css.Header_content_text}>{data?.email}</p>
           </div>
         </div>
         <button

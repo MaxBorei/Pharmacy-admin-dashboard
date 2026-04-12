@@ -12,6 +12,13 @@ type LoginResponse = {
     accessToken: string;
   };
 };
+type RefreshResponse = {
+  status: number;
+  message: string;
+  data: {
+    accessToken: string;
+  };
+};
 
 export const login = async (payload: LoginPayload) => {
   const { data } = await api.post<LoginResponse>("/login", payload);
@@ -20,4 +27,13 @@ export const login = async (payload: LoginPayload) => {
 
 export const logout = () => {
   return api.post("/logout");
+};
+
+export const refreshSession = async () => {
+  const { data } = await api.post<RefreshResponse>("/refresh");
+  const newAccessToken = data.data.accessToken;
+
+  localStorage.setItem("accessToken", newAccessToken);
+
+  return newAccessToken;
 };
