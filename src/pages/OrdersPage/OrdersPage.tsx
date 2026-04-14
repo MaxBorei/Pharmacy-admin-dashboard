@@ -2,32 +2,22 @@ import { useEffect, useState } from "react";
 import { getOrders } from "../../lib/order";
 import Loader from "../../components/Loader/Loader";
 import css from "./OrderPage.module.css";
-import type { Status } from "../../lib/types/Order";
+import type { OrderDataPagination } from "../../lib/types/Order";
 import { statusClassMap } from "../../constants";
-
-export type OrderDataItem = {
-  _id: string;
-  photo: string;
-  name: string;
-  address: string;
-  products: string;
-  order_date: string;
-  price: string;
-  status: Status;
-};
-
-export type OrderData = OrderDataItem[];
+import clsx from "clsx";
 
 export const OrderPage = () => {
-  const [data, setData] = useState<OrderData | null>(null);
+  const [data, setData] = useState<OrderDataPagination | null>(null);
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const data = await getOrders();
+        const data = await getOrders(currentPage);
         setData(data);
       } catch (error: unknown) {
         console.log(error);
@@ -36,7 +26,12 @@ export const OrderPage = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [currentPage]);
+
+  const pages = data
+    ? Array.from({ length: data.totalPages }, (_, i) => i + 1)
+    : [];
+
   return (
     <section className={css.orderPage}>
       {isLoading && <Loader message="Завантажуємо дані..." />}
@@ -53,7 +48,7 @@ export const OrderPage = () => {
           </tr>
         </thead>
         <tbody>
-          {data?.map((item) => (
+          {data?.data.map((item) => (
             <tr key={item._id}>
               <td>
                 <div className={css.order_table_avatar_box}>
@@ -86,6 +81,23 @@ export const OrderPage = () => {
           ))}
         </tbody>
       </table>
+      <div className={css.order_pagination_container}>
+        {pages.map((i) => (
+          <button
+            key={i}
+            className={clsx(
+              css.order_pagination_btn,
+              currentPage === i && css.active,
+            )}
+            type="button"
+            onClick={() => setCurrentPage(i)}
+          >
+            <svg className={css.order_pagination_svg}>
+              <use href="/sprite.svg#icon-dot"></use>
+            </svg>
+          </button>
+        ))}
+      </div>
     </section>
   );
 };

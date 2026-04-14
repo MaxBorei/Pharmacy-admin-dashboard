@@ -4,6 +4,7 @@
 .order_table {
   border-collapse: collapse;
   width: 100%;
+  margin-bottom: 20px;
 }
 .order_table th,
 .order_table td {
@@ -90,6 +91,30 @@
   height: 25px;
   font-size: var(--fs-14);
   display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.active .order_pagination_svg {
+  width: 18px;
+  height: 18px;
+  fill: var(--accent);
+}
+.order_pagination_svg {
+  width: 16px;
+  height: 16px;
+  fill: var(--muted);
+}
+.order_pagination_btn {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.order_pagination_container {
+  width: 100%;
+  display: flex;
+  gap: 8px;
   align-items: center;
   justify-content: center;
 }
