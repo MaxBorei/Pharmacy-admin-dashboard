@@ -102,7 +102,7 @@
 .order_pagination_svg {
   width: 16px;
   height: 16px;
-  fill: var(--muted);
+  fill: #e7f1ed;
 }
 .order_pagination_btn {
   width: 24px;
