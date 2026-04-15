@@ -77,4 +77,10 @@
             d="M26.003 16.002c0 5.523-4.478 10.001-10.001 10.001s-10.001-4.478-10.001-10.001c0-5.523 4.478-10.001 10.001-10.001s10.001 4.478 10.001 10.001z"></path>
     </symbol>
 
+    <symbol id="icon-filter" viewBox="0 0 32 32">
+        <path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4"
+            stroke-width="3.4286"
+            d="M29.334 4h-26.667l10.667 12.613v8.72l5.333 2.667v-11.387l10.667-12.613z"></path>
+    </symbol>
+
 </svg>
