@@ -73,23 +73,31 @@ export const DashboardPage = () => {
           <caption>Income/Expenses</caption>
           <thead>
             <tr>
-              <th>Today</th>
-              <th></th>
-              <th></th>
+              <th colSpan={3}>Today</th>
             </tr>
           </thead>
           <tbody>
-            {data?.transactions.map((i) => (
-              <tr key={i._id}>
-                <td>
-                  <p className={css[statusClassMap[i.status] ?? ""]}>
-                    {i.status}
-                  </p>
-                </td>
-                <td>{i.name}</td>
-                <td>{i.price}</td>
-              </tr>
-            ))}
+            {data?.transactions.map((i) => {
+              const isCancelled = i.status === "Cancelled";
+
+              return (
+                <tr key={i._id}>
+                  <td>
+                    <p className={isCancelled ? css.expense : css.income}>
+                      {isCancelled ? "Expense" : "Income"}
+                    </p>
+                  </td>
+                  <td>{i.name}</td>
+                  <td
+                    className={
+                      isCancelled ? css.expenseAmount : css.incomeAmount
+                    }
+                  >
+                    {isCancelled ? `-${i.price}` : `+${i.price}`}
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

@@ -53,47 +53,16 @@
   gap: 8px;
   align-items: center;
 }
-.completed {
-  color: var(--accent);
-  background: var(--status-completed-bg);
-}
-
-.confirmed {
-  color: var(--status-confirmed);
-  background: var(--status-confirmed-bg);
-}
-
-.pending {
-  color: var(--status-pending);
-  background: var(--status-pending-bg);
-}
-
-.cancelled {
+.expense {
   color: var(--accent-2);
   background: var(--status-cancelled-bg);
 }
-
-.processing {
-  color: var(--status-processing);
-  background: var(--status-processing-bg);
-}
-
-.shipped {
-  color: var(--status-shipped);
-  background: var(--status-shipped-bg);
-}
-
-.delivered {
+.income {
   color: var(--status-delivered);
   background: var(--status-delivered-bg);
 }
-.delivered,
-.shipped,
-.processing,
-.cancelled,
-.pending,
-.confirmed,
-.completed {
+.income,
+.expense {
   border-radius: 40px;
   padding: 4px 12px;
   width: 92px;
