@@ -4,4 +4,102 @@
 .dashboardPage_container_total_info {
   display: flex;
   gap: 20px;
+  margin-bottom: 40px;
+}
+.dasboard_table_container {
+  display: flex;
+  gap: 20px;
+}
+.dasboard_table_one {
+  border-collapse: collapse;
+  width: 50%;
+  margin-bottom: 20px;
+}
+.dasboard_table_one th,
+.dasboard_table_one td {
+  border: 1px solid var(--table-border);
+  padding: 20px;
+  text-align: start;
+}
+
+.dasboard_table_one caption {
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-18);
+  line-height: 1.33;
+  background: var(--background);
+  border: 0px solid rgba(29, 30, 33, 0.08);
+  border-radius: 8px 8px 0 0;
+  height: 64px;
+  padding: 20px;
+  text-align: start;
+}
+
+.dasboard_table_one th {
+  font-size: var(--fs-14);
+  line-height: 1.29;
+  color: var(--muted);
+}
+
+.dasboard_table_one tbody {
+  height: 76px;
+}
+.dasboard_table_one_avatar {
+  border-radius: 30px;
+  width: 36px;
+  height: 36px;
+}
+.dasboard_table_one_avatar_box {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.completed {
+  color: var(--accent);
+  background: var(--status-completed-bg);
+}
+
+.confirmed {
+  color: var(--status-confirmed);
+  background: var(--status-confirmed-bg);
+}
+
+.pending {
+  color: var(--status-pending);
+  background: var(--status-pending-bg);
+}
+
+.cancelled {
+  color: var(--accent-2);
+  background: var(--status-cancelled-bg);
+}
+
+.processing {
+  color: var(--status-processing);
+  background: var(--status-processing-bg);
+}
+
+.shipped {
+  color: var(--status-shipped);
+  background: var(--status-shipped-bg);
+}
+
+.delivered {
+  color: var(--status-delivered);
+  background: var(--status-delivered-bg);
+}
+.delivered,
+.shipped,
+.processing,
+.cancelled,
+.pending,
+.confirmed,
+.completed {
+  border-radius: 40px;
+  padding: 4px 12px;
+  width: 92px;
+  height: 25px;
+  font-size: var(--fs-14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

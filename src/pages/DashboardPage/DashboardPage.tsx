@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import Loader from "../../components/Loader/Loader";
 import { DashboardCardInfo } from "../../components/DashboardCardInfo/DashboardCardInfo";
 import type { DashboardData } from "../../lib/types/dashboard";
-import { infoDashboard } from "../../constants";
+import { infoDashboard, statusClassMap } from "../../constants";
 
 export const DashboardPage = () => {
   const [data, setData] = useState<DashboardData | null>(null);
@@ -39,6 +39,59 @@ export const DashboardPage = () => {
             value={data?.[item.key] ?? 0}
           />
         ))}
+      </div>
+      <div className={css.dasboard_table_container}>
+        <table className={css.dasboard_table_one}>
+          <caption>Recent Customers</caption>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Spent</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data?.recentCustomers.map((i) => (
+              <tr key={i._id}>
+                <td>
+                  <div className={css.dasboard_table_one_avatar_box}>
+                    <img
+                      src={i.image}
+                      alt={i.name}
+                      className={css.dasboard_table_one_avatar}
+                    />
+                    <p>{i.name}</p>
+                  </div>
+                </td>
+                <td>{i.email}</td>
+                <td>{i.spent}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <table className={css.dasboard_table_one}>
+          <caption>Income/Expenses</caption>
+          <thead>
+            <tr>
+              <th>Today</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {data?.transactions.map((i) => (
+              <tr key={i._id}>
+                <td>
+                  <p className={css[statusClassMap[i.status] ?? ""]}>
+                    {i.status}
+                  </p>
+                </td>
+                <td>{i.name}</td>
+                <td>{i.price}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </section>
   );
