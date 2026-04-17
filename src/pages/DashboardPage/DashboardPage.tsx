@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import Loader from "../../components/Loader/Loader";
 import { DashboardCardInfo } from "../../components/DashboardCardInfo/DashboardCardInfo";
 import type { DashboardData } from "../../lib/types/dashboard";
-import { infoDashboard, statusClassMap } from "../../constants";
+import { infoDashboard } from "../../constants";
 
 export const DashboardPage = () => {
   const [data, setData] = useState<DashboardData | null>(null);
