@@ -72,3 +72,9 @@
   align-items: center;
   justify-content: center;
 }
+.incomeAmount {
+  color: var(--status-delivered);
+}
+.expenseAmount {
+  color: var(--accent-2);
+}

@@ -28,7 +28,6 @@
   color: var(--muted);
 }
 .form_filter {
-  margin-bottom: 20px;
   display: flex;
   gap: 14px;
 }
