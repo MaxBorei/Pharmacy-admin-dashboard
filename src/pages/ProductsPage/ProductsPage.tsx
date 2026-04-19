@@ -1,11 +1,15 @@
 import Loader from "../../components/Loader/Loader";
-import type { ProductDataPagination } from "../../lib/types/Products";
+import type {
+  ProductDataItem,
+  ProductDataPagination,
+} from "../../lib/types/Products";
 import css from "./ProductsPage.module.css";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { getProducts } from "../../lib/products";
 import { Filter } from "../../components/Filter/Filter";
 import { Pagination } from "../../components/Pagination/Pagination";
 import Modal from "../../components/Modal/Modal";
+import { ProductFormModal } from "../../components/ProductFormModal/ProductFormModal";
 
 export const ProductsPage = () => {
   const [data, setData] = useState<ProductDataPagination | null>(null);
@@ -16,26 +20,33 @@ export const ProductsPage = () => {
 
   const [appliedName, setAppliedName] = useState("");
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalType, setModalType] = useState<"create" | "edit" | null>(null);
 
-  const openModal = () => setIsModalOpen(true);
+  const openCreate = () => setModalType("create");
+  const openEdit = (product: ProductDataItem) => {
+    setSelectedProduct(product);
+    setModalType("edit");
+  };
+  const closeModal = () => setModalType(null);
 
-  const closeModal = () => setIsModalOpen(false);
+  const [selectedProduct, setSelectedProduct] =
+    useState<null | ProductDataItem>(null);
+
+  const fetchData = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const data = await getProducts(currentPage, appliedName);
+      setData(data);
+    } catch (error: unknown) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [currentPage, appliedName]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      try {
-        const data = await getProducts(currentPage, appliedName);
-        setData(data);
-      } catch (error: unknown) {
-        console.log(error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
     fetchData();
-  }, [currentPage, appliedName]);
+  }, [fetchData]);
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setAppliedName(inputValue);
@@ -52,16 +63,27 @@ export const ProductsPage = () => {
           onSubmit={handleSubmit}
         />
         <div className={css.productsPage_modal_container}>
-          <button className={css.productsPage_btn_modal} onClick={openModal}>
+          <button
+            type="button"
+            className={css.productsPage_btn_modal}
+            onClick={openCreate}
+          >
             <svg className={css.productsPage_modal_btn_svg}>
               <use href="../../../public/sprite.svg#icon-plus"></use>
             </svg>
           </button>
           <p className={css.productsPage_text_modal}>Add a new product</p>
-          {isModalOpen && (
+          {modalType && (
             <Modal onClose={closeModal}>
-              <h2>Custom Modal Content</h2>
-              <p>This is a reusable modal with dynamic content.</p>
+              {modalType === "create" && <h2>Create product</h2>}
+              {modalType === "edit" && (
+                <ProductFormModal
+                  modalType={modalType}
+                  selectedProduct={selectedProduct}
+                  onClose={closeModal}
+                  refetchProducts={fetchData}
+                />
+              )}
             </Modal>
           )}
         </div>
@@ -87,7 +109,23 @@ export const ProductsPage = () => {
               <td>{item.stock}</td>
               <td>{item.suppliers}</td>
               <td>{item.price}</td>
-              <td></td>
+              <td>
+                <div className={css.productsPage_modal_btn_edit_box}>
+                  <button
+                    className={css.productsPage_modal_btn_edit}
+                    onClick={() => openEdit(item)}
+                  >
+                    <svg className={css.productsPage_modal_edit_svg}>
+                      <use href="../../../public/sprite.svg#icon-edit"></use>
+                    </svg>
+                  </button>
+                  <button className={css.productsPage_modal_btn_delete}>
+                    <svg className={css.productsPage_modal_delete_svg}>
+                      <use href="../../../public/sprite.svg#icon-trash"></use>
+                    </svg>
+                  </button>
+                </div>
+              </td>
             </tr>
           ))}
         </tbody>

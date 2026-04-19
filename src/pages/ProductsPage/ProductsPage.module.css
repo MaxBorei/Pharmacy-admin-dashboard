@@ -5,6 +5,7 @@
   border-collapse: collapse;
   width: 100%;
   margin-bottom: 20px;
+  margin-top: 20px;
 }
 .productsPage_table th,
 .productsPage_table td {
@@ -37,7 +38,6 @@
 .productsPage_filter_modal_container {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
 }
 .productsPage_btn_modal {
   border-radius: 60px;
@@ -59,4 +59,43 @@
   width: 16px;
   height: 16px;
   fill: var(--background);
+}
+.productsPage_modal_edit_svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 1.3px;
+  stroke: var(--accent);
+  fill: none;
+}
+.productsPage_modal_btn_edit {
+  border: 1px solid rgba(89, 177, 122, 0.5);
+  border-radius: 30px;
+  padding: 8px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.productsPage_modal_btn_edit_box {
+  display: flex;
+  gap: 8px;
+}
+.productsPage_modal_btn_delete {
+  border: 1px solid rgba(232, 80, 80, 0.5);
+  border-radius: 30px;
+  padding: 8px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.productsPage_modal_delete_svg {
+  stroke-width: 1.3px;
+  stroke: var(--accent-2);
+  width: 16px;
+  height: 16px;
+  fill: none;
 }

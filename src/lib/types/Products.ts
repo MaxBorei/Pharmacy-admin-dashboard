@@ -1,4 +1,4 @@
-type ProductDataItem = {
+export type ProductDataItem = {
   _id: string;
   id: string;
   photo: string;

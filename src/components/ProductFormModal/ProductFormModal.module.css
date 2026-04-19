@@ -1,0 +1,66 @@
+.modalTitle {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.inputsWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.input {
+  flex: 1 1 45%;
+  height: 44px;
+  padding: 0 14px;
+  border-radius: 24px;
+  border: 1px solid #b8d8c9;
+  outline: none;
+  font-size: 14px;
+}
+
+.select {
+  flex: 1 1 45%;
+  height: 44px;
+  padding: 0 14px;
+  border-radius: 24px;
+  border: 1px solid #b8d8c9;
+  outline: none;
+  font-size: 14px;
+  background-color: #fff;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.btnSave {
+  flex: 1;
+  height: 44px;
+  border-radius: 24px;
+  border: none;
+  background-color: #5cab7d;
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btnCancel {
+  flex: 1;
+  height: 44px;
+  border-radius: 24px;
+  border: none;
+  background-color: #e5e5e5;
+  color: #666;
+  font-weight: 500;
+  cursor: pointer;
+}
