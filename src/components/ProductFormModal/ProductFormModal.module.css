@@ -1,7 +1,8 @@
 .modalTitle {
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 20px;
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-24);
+  line-height: 1.17;
+  margin-bottom: 40px;
 }
 
 .form {
@@ -12,29 +13,34 @@
 
 .inputsWrapper {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
+  flex-direction: column;
+  gap: 14px;
 }
 
 .input {
-  flex: 1 1 45%;
   height: 44px;
-  padding: 0 14px;
-  border-radius: 24px;
-  border: 1px solid #b8d8c9;
-  outline: none;
-  font-size: 14px;
+  width: 224px;
+  padding: 13px 18px;
+  border: 1px solid rgba(89, 177, 122, 0.4);
+  border-radius: 60px;
+  background: var(--background-3);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-12);
+  line-height: 1.5;
+  color: var(--placeholder);
 }
 
 .select {
-  flex: 1 1 45%;
+  padding: 13px 18px;
   height: 44px;
-  padding: 0 14px;
-  border-radius: 24px;
-  border: 1px solid #b8d8c9;
-  outline: none;
-  font-size: 14px;
-  background-color: #fff;
+  border: 1px solid rgba(89, 177, 122, 0.4);
+  border-radius: 60px;
+  width: 224px;
+  background: var(--background-3);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-12);
+  line-height: 1.5;
+  color: var(--placeholder);
 }
 
 .actions {
@@ -44,23 +50,30 @@
 }
 
 .btnSave {
-  flex: 1;
+  border-radius: 60px;
+  padding: 13px 50px;
+  width: 133px;
   height: 44px;
-  border-radius: 24px;
-  border: none;
-  background-color: #5cab7d;
-  color: #fff;
-  font-weight: 500;
-  cursor: pointer;
+  background: var(--accent);
+  font-size: var(--fs-14);
+  line-height: 1.29;
+  color: var(--background-3);
+}
+.btnSave:hover {
+  background: var(--accent-hover);
 }
 
 .btnCancel {
-  flex: 1;
+  border-radius: 60px;
+  padding: 13px 43px;
+  width: 133px;
   height: 44px;
-  border-radius: 24px;
-  border: none;
-  background-color: #e5e5e5;
-  color: #666;
-  font-weight: 500;
-  cursor: pointer;
+  background: var(--table-border);
+  font-size: var(--fs-14);
+  line-height: 1.29;
+  color: var(--muted);
+}
+.first_line_input_box {
+  display: flex;
+  gap: 8px;
 }

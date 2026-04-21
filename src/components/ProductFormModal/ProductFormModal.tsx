@@ -38,25 +38,32 @@ export const ProductFormModal = ({
 
       <form className={css.form} onSubmit={onSubmit}>
         <div className={css.inputsWrapper}>
-          <input
-            className={css.input}
-            type="text"
-            name="name"
-            defaultValue={selectedProduct?.name ?? ""}
-            placeholder="Product name"
-          />
-
-          <select
-            className={css.select}
-            name="category"
-            defaultValue={selectedProduct?.category ?? "Medicine"}
-          >
-            <option value="Medicine">Medicine</option>
-            <option value="Heart">Heart</option>
-            <option value="Head">Head</option>
-            <option value="Hand">Hand</option>
-            <option value="Leg">Leg</option>
-          </select>
+          <div className={css.first_line_input_box}>
+            <input
+              className={css.input}
+              type="text"
+              name="name"
+              defaultValue={selectedProduct?.name ?? ""}
+              placeholder="Product name"
+            />
+            <select
+              className={css.select}
+              name="category"
+              defaultValue={selectedProduct?.category ?? "Medicine"}
+            >
+              <option value="Medicine">Medicine</option>
+              <option value="Head">Head</option>
+              <option value="Hand">Hand</option>
+              <option value="Dental Care">Dental Care</option>
+              <option value="Skin Care">Skin Care</option>
+              <option value="Eye Care">Eye Care</option>
+              <option value="Vitamins & Supplements">
+                Vitamins & Supplements
+              </option>
+              <option value="Orthopedic Products">Orthopedic Products</option>
+              <option value="Baby Care">Baby Care</option>
+            </select>
+          </div>
 
           <input
             className={css.input}
