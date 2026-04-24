@@ -74,7 +74,7 @@ export const ProductFormModal = ({
                 <span>{value}</span>
                 <span>
                   <svg className={css.selectBtnSvg}>
-                    <use href="../../../public/sprite.svg#icon-arow"></use>
+                    <use href="/sprite.svg#icon-arow"></use>
                   </svg>
                 </span>
               </button>

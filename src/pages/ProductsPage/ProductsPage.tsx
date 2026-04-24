@@ -116,12 +116,12 @@ export const ProductsPage = () => {
                     onClick={() => openEdit(item)}
                   >
                     <svg className={css.productsPage_modal_edit_svg}>
-                      <use href="../../../public/sprite.svg#icon-edit"></use>
+                      <use href="/sprite.svg#icon-edit"></use>
                     </svg>
                   </button>
                   <button className={css.productsPage_modal_btn_delete}>
                     <svg className={css.productsPage_modal_delete_svg}>
-                      <use href="../../../public/sprite.svg#icon-trash"></use>
+                      <use href="/sprite.svg#icon-trash"></use>
                     </svg>
                   </button>
                 </div>
