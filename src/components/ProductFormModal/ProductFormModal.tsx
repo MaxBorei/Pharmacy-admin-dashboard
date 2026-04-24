@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { updateProduct } from "../../lib/products";
 import type { ProductDataItem } from "../../lib/types/Products";
 import css from "./ProductFormModal.module.css";
@@ -8,6 +9,18 @@ type ProductFormModalProps = {
   onClose: () => void;
   refetchProducts: () => Promise<void>;
 };
+
+const options = [
+  "Medicine",
+  "Head",
+  "Hand",
+  "Dental Care",
+  "Skin Care",
+  "Eye Care",
+  "Vitamins & Supplements",
+  "Orthopedic Products",
+  "Baby Care",
+];
 
 export const ProductFormModal = ({
   modalType,
@@ -30,6 +43,10 @@ export const ProductFormModal = ({
     await refetchProducts();
     onClose();
   };
+
+  const [value, setValue] = useState(selectedProduct?.category ?? "Medicine");
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div>
       <h2 className={css.modalTitle}>
@@ -46,23 +63,41 @@ export const ProductFormModal = ({
               defaultValue={selectedProduct?.name ?? ""}
               placeholder="Product name"
             />
-            <select
-              className={css.select}
-              name="category"
-              defaultValue={selectedProduct?.category ?? "Medicine"}
-            >
-              <option value="Medicine">Medicine</option>
-              <option value="Head">Head</option>
-              <option value="Hand">Hand</option>
-              <option value="Dental Care">Dental Care</option>
-              <option value="Skin Care">Skin Care</option>
-              <option value="Eye Care">Eye Care</option>
-              <option value="Vitamins & Supplements">
-                Vitamins & Supplements
-              </option>
-              <option value="Orthopedic Products">Orthopedic Products</option>
-              <option value="Baby Care">Baby Care</option>
-            </select>
+            <div className={css.select}>
+              <input type="hidden" name="category" value={value} />
+
+              <button
+                type="button"
+                className={css.selectBtn}
+                onClick={() => setIsOpen(!isOpen)}
+              >
+                <span>{value}</span>
+                <span>
+                  <svg className={css.selectBtnSvg}>
+                    <use href="../../../public/sprite.svg#icon-arow"></use>
+                  </svg>
+                </span>
+              </button>
+
+              {isOpen && (
+                <ul className={css.options}>
+                  {options.map((option) => (
+                    <li key={option}>
+                      <button
+                        type="button"
+                        className={`${css.option} ${value === option ? css.activeOption : ""}`}
+                        onClick={() => {
+                          setValue(option);
+                          setIsOpen(false);
+                        }}
+                      >
+                        {option}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </div>
 
           <input
