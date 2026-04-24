@@ -69,7 +69,7 @@ export const ProductsPage = () => {
             onClick={openCreate}
           >
             <svg className={css.productsPage_modal_btn_svg}>
-              <use href="../../../public/sprite.svg#icon-plus"></use>
+              <use href="/sprite.svg#icon-plus"></use>
             </svg>
           </button>
           <p className={css.productsPage_text_modal}>Add a new product</p>

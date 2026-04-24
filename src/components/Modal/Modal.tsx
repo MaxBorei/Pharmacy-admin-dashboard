@@ -44,7 +44,7 @@ export default function Modal({ onClose, children }: ModalProps) {
           aria-label="Close modal"
         >
           <svg className={css.closeButton_svg}>
-            <use href="../../../public/sprite.svg#icon-close"></use>
+            <use href="/sprite.svg#icon-close"></use>
           </svg>
         </button>
         {children}
