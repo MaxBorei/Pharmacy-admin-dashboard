@@ -5,7 +5,7 @@ import type {
 } from "../../lib/types/Products";
 import css from "./ProductsPage.module.css";
 import { useCallback, useEffect, useState } from "react";
-import { getProducts } from "../../lib/products";
+import { deleteProduct, getProducts } from "../../lib/products";
 import { Filter } from "../../components/Filter/Filter";
 import { Pagination } from "../../components/Pagination/Pagination";
 import Modal from "../../components/Modal/Modal";
@@ -26,6 +26,11 @@ export const ProductsPage = () => {
   const openEdit = (product: ProductDataItem) => {
     setSelectedProduct(product);
     setModalType("edit");
+  };
+
+  const deleteItem = async (product: ProductDataItem) => {
+    await deleteProduct(product._id);
+    fetchData();
   };
   const closeModal = () => setModalType(null);
 
@@ -119,7 +124,10 @@ export const ProductsPage = () => {
                       <use href="/sprite.svg#icon-edit"></use>
                     </svg>
                   </button>
-                  <button className={css.productsPage_modal_btn_delete}>
+                  <button
+                    className={css.productsPage_modal_btn_delete}
+                    onClick={() => deleteItem(item)}
+                  >
                     <svg className={css.productsPage_modal_delete_svg}>
                       <use href="/sprite.svg#icon-trash"></use>
                     </svg>
