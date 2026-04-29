@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { updateProduct } from "../../lib/products";
+import { createProduct, updateProduct } from "../../lib/products";
 import type { ProductDataItem } from "../../lib/types/Products";
 import css from "./ProductFormModal.module.css";
 
@@ -37,9 +37,22 @@ export const ProductFormModal = ({
     const stock = formData.get("stock") as string;
     const price = formData.get("price") as string;
     const productId = selectedProduct?._id;
-    if (!productId) return;
-    const payload = { name, category, stock, price };
-    await updateProduct(productId, payload);
+    const suppliers = formData.get("suppliers") as string;
+    const photo = "https://i.ibb.co/f8b9G3g/medicine5.jpg";
+    const id = Date.now().toString();
+
+    const payload =
+      modalType === "create"
+        ? { id, name, category, stock, price, suppliers, photo }
+        : { name, category, stock, price };
+
+    if (modalType === "create") {
+      await createProduct(payload);
+    } else {
+      if (!productId) return;
+      await updateProduct(productId, payload);
+    }
+
     await refetchProducts();
     onClose();
   };
@@ -100,13 +113,24 @@ export const ProductFormModal = ({
             </div>
           </div>
 
-          <input
-            className={css.input}
-            type="text"
-            name="stock"
-            defaultValue={selectedProduct?.stock ?? ""}
-            placeholder="Stock"
-          />
+          <div className={css.first_line_input_box}>
+            <input
+              className={css.input}
+              type="text"
+              name="stock"
+              defaultValue={selectedProduct?.stock ?? ""}
+              placeholder="Stock"
+            />
+            {modalType === "create" && (
+              <input
+                className={css.input}
+                type="text"
+                name="suppliers"
+                defaultValue=""
+                placeholder="Suppliers"
+              />
+            )}
+          </div>
 
           <input
             className={css.input}

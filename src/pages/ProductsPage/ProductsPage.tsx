@@ -22,15 +22,22 @@ export const ProductsPage = () => {
 
   const [modalType, setModalType] = useState<"create" | "edit" | null>(null);
 
-  const openCreate = () => setModalType("create");
+  const openCreate = () => {
+    setSelectedProduct(null);
+    setModalType("create");
+  };
   const openEdit = (product: ProductDataItem) => {
     setSelectedProduct(product);
     setModalType("edit");
   };
 
   const deleteItem = async (product: ProductDataItem) => {
-    await deleteProduct(product._id);
-    fetchData();
+    try {
+      await deleteProduct(product._id);
+      fetchData();
+    } catch (error) {
+      console.log(error);
+    }
   };
   const closeModal = () => setModalType(null);
 
@@ -80,7 +87,14 @@ export const ProductsPage = () => {
           <p className={css.productsPage_text_modal}>Add a new product</p>
           {modalType && (
             <Modal onClose={closeModal}>
-              {modalType === "create" && <h2>Create product</h2>}
+              {modalType === "create" && (
+                <ProductFormModal
+                  modalType="create"
+                  selectedProduct={null}
+                  onClose={closeModal}
+                  refetchProducts={fetchData}
+                />
+              )}
               {modalType === "edit" && (
                 <ProductFormModal
                   modalType={modalType}

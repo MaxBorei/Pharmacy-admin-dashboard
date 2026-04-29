@@ -19,3 +19,8 @@ export const updateProduct = async (
 export const deleteProduct = async (productId: string) => {
   return api.delete(`/products/${productId}`);
 };
+
+export const createProduct = async (payload: Partial<ProductDataItem>) => {
+  const { data } = await api.post("/products", payload);
+  return data.data;
+};
