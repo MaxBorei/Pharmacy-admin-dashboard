@@ -20,6 +20,7 @@ const options = [
   "Vitamins & Supplements",
   "Orthopedic Products",
   "Baby Care",
+  "Leg",
 ];
 
 export const ProductFormModal = ({
@@ -44,7 +45,7 @@ export const ProductFormModal = ({
     const payload =
       modalType === "create"
         ? { id, name, category, stock, price, suppliers, photo }
-        : { name, category, stock, price };
+        : { name, category, stock, suppliers, price };
 
     if (modalType === "create") {
       await createProduct(payload);
@@ -121,15 +122,13 @@ export const ProductFormModal = ({
               defaultValue={selectedProduct?.stock ?? ""}
               placeholder="Stock"
             />
-            {modalType === "create" && (
-              <input
-                className={css.input}
-                type="text"
-                name="suppliers"
-                defaultValue=""
-                placeholder="Suppliers"
-              />
-            )}
+            <input
+              className={css.input}
+              type="text"
+              name="suppliers"
+              defaultValue={selectedProduct?.suppliers ?? ""}
+              placeholder="Suppliers"
+            />
           </div>
 
           <input
