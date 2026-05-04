@@ -15,8 +15,12 @@ export const Sidebar = () => {
     { path: "dashboard", icon: "icon-ic_round-dashboard", label: "Dashboard" },
     { path: "orders", icon: "icon-ic_round-shopping-cart", label: "Orders" },
     { path: "products", icon: "icon-mingcute_flask-fill", label: "Products" },
-    { path: "customers", icon: "icon-mdi_local-pharmacy", label: "Customers" },
-    { path: "suppliers", icon: "icon-mdi_users", label: "Suppliers" },
+    { path: "suppliers", icon: "icon-mdi_local-pharmacy", label: "Suppliers" },
+    {
+      path: "customers",
+      icon: "icon-mdi_users",
+      label: "Customers",
+    },
   ];
   return (
     <aside className={css.layout_container_sidebar}>
