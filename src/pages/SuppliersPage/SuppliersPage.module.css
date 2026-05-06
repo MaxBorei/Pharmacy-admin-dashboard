@@ -1,0 +1,123 @@
+.suppliersPage {
+  padding: 75px 0 40px;
+}
+.suppliersPage_table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+.suppliersPage_table th,
+.suppliersPage_table td {
+  border: 1px solid var(--table-border);
+  padding: 20px;
+  text-align: start;
+}
+
+.suppliersPage_table caption {
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-18);
+  line-height: 1.33;
+  background: var(--background);
+  border: 0px solid rgba(29, 30, 33, 0.08);
+  border-radius: 8px 8px 0 0;
+  height: 64px;
+  padding: 20px;
+  text-align: start;
+}
+
+.suppliersPage_table th {
+  font-size: var(--fs-14);
+  line-height: 1.29;
+  color: var(--muted);
+}
+
+.suppliersPage_table tbody {
+  height: 76px;
+}
+.suppliersPage_filter_modal_container {
+  display: flex;
+  justify-content: space-between;
+}
+.suppliersPage_btn_modal {
+  border: 1px solid rgba(89, 177, 122, 0.5);
+  border-radius: 60px;
+  padding: 13px 30px;
+  width: 196px;
+  height: 44px;
+  white-space: nowrap;
+}
+.suppliersPage_text_modal {
+  font-size: 14px;
+  line-height: 1.29;
+}
+.suppliersPage_modal_container {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.suppliersPage_modal_edit_svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 1.3px;
+  stroke: var(--accent);
+  fill: none;
+}
+.suppliersPage_modal_btn_edit {
+  border: 1px solid rgba(89, 177, 122, 0.5);
+  border-radius: 30px;
+  padding: 8px 17px;
+  width: 82px;
+  height: 34px;
+  display: flex;
+  gap: 4px;
+}
+
+.suppliersPage_modal_btn_delete {
+  border: 1px solid rgba(232, 80, 80, 0.5);
+  border-radius: 30px;
+  padding: 8px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.suppliersPage_modal_delete_svg {
+  stroke-width: 1.3px;
+  stroke: var(--accent-2);
+  width: 16px;
+  height: 16px;
+  fill: none;
+}
+.options li {
+  list-style: none;
+}
+.active {
+  border-radius: 40px;
+  padding: 4px 25px;
+  width: 89px;
+  height: 25px;
+  background: var(--status-completed-bg);
+  font-size: 14px;
+  letter-spacing: -0.05em;
+  text-align: center;
+  color: var(--accent);
+}
+.deactive {
+  border-radius: 40px;
+  padding: 4px 12px;
+  width: 89px;
+  height: 25px;
+  background: var(--status-cancelled-bg);
+  font-size: 14px;
+  letter-spacing: -0.05em;
+  text-align: center;
+  color: var(--accent-2);
+}
+.suppliersPage_modal_btn_edit_text {
+  line-height: 1.13;
+  color: var(--accent);
+}

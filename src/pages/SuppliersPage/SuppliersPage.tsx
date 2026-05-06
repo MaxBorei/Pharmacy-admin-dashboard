@@ -56,26 +56,23 @@ export const SuppliersPage = () => {
   };
 
   return (
-    <section className={css.productsPage}>
+    <section className={css.suppliersPage}>
       {isLoading && <Loader message="Завантажуємо дані..." />}
 
-      <div className={css.productsPage_filter_modal_container}>
+      <div className={css.suppliersPage_filter_modal_container}>
         <Filter
           inputValue={inputValue}
           setInputValue={setInputValue}
           onSubmit={handleSubmit}
         />
-        <div className={css.productsPage_modal_container}>
+        <div className={css.suppliersPage_modal_container}>
           <button
             type="button"
-            className={css.productsPage_btn_modal}
+            className={css.suppliersPage_btn_modal}
             onClick={openCreate}
           >
-            <svg className={css.productsPage_modal_btn_svg}>
-              <use href="/sprite.svg#icon-plus"></use>
-            </svg>
+            <p className={css.suppliersPage_text_modal}>Add a new suppliers</p>
           </button>
-          <p className={css.productsPage_text_modal}>Add a new product</p>
           {modalType && (
             <Modal onClose={closeModal}>
               {modalType === "create" && (
@@ -91,7 +88,7 @@ export const SuppliersPage = () => {
                   modalType={modalType}
                   selectedSupplier={selectedSupplier}
                   onClose={closeModal}
-                  refetchProducts={fetchData}
+                  refetchSuppliers={fetchData}
                 />
               )}
             </Modal>
@@ -99,7 +96,7 @@ export const SuppliersPage = () => {
         </div>
       </div>
 
-      <table className={css.productsPage_table}>
+      <table className={css.suppliersPage_table}>
         <caption>All orders</caption>
         <thead>
           <tr>
@@ -113,28 +110,37 @@ export const SuppliersPage = () => {
           </tr>
         </thead>
         <tbody>
-          {data?.data.map((item) => (
-            <tr key={item._id}>
-              <td>{item.name}</td>
-              <td>{item.address}</td>
-              <td>{item.suppliers}</td>
-              <td>{item.date}</td>
-              <td>{item.amount}</td>
-              <td>{item.status}</td>
-              <td>
-                <div className={css.productsPage_modal_btn_edit_box}>
+          {data?.data.map((item) => {
+            const isActive = item.status === "Active";
+
+            return (
+              <tr key={item._id}>
+                <td>{item.name}</td>
+                <td>{item.address}</td>
+                <td>{item.suppliers}</td>
+                <td>{item.date}</td>
+                <td>{item.amount.replace(/[^\d.,-]/g, "")}</td>
+                <td>
+                  <p className={isActive ? css.active : css.deactive}>
+                    {isActive ? "Active" : "Deactive"}
+                  </p>
+                </td>
+                <td>
                   <button
-                    className={css.productsPage_modal_btn_edit}
+                    className={css.suppliersPage_modal_btn_edit}
                     onClick={() => openEdit(item)}
                   >
-                    <svg className={css.productsPage_modal_edit_svg}>
+                    <svg className={css.suppliersPage_modal_edit_svg}>
                       <use href="/sprite.svg#icon-edit"></use>
                     </svg>
+                    <p className={css.suppliersPage_modal_btn_edit_text}>
+                      Edit
+                    </p>
                   </button>
-                </div>
-              </td>
-            </tr>
-          ))}
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
 
