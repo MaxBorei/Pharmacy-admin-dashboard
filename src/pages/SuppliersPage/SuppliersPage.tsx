@@ -8,8 +8,8 @@ import { getSuppliers } from "../../lib/suppliers";
 import { Filter } from "../../components/Filter/Filter";
 import Loader from "../../components/Loader/Loader";
 import { Pagination } from "../../components/Pagination/Pagination";
-import { ProductFormModal } from "../../components/ProductFormModal/ProductFormModal";
 import Modal from "../../components/Modal/Modal";
+import { SupplierFormModal } from "../../components/SuppliersFormModal/SuppliersFormModal";
 
 export const SuppliersPage = () => {
   const [data, setData] = useState<SupplierDataPagination | null>(null);
@@ -76,15 +76,15 @@ export const SuppliersPage = () => {
           {modalType && (
             <Modal onClose={closeModal}>
               {modalType === "create" && (
-                <ProductFormModal
+                <SupplierFormModal
                   modalType="create"
-                  selectedProduct={null}
+                  selectedSupplier={null}
                   onClose={closeModal}
-                  refetchProducts={fetchData}
+                  refetchSuppliers={fetchData}
                 />
               )}
               {modalType === "edit" && (
-                <ProductFormModal
+                <SupplierFormModal
                   modalType={modalType}
                   selectedSupplier={selectedSupplier}
                   onClose={closeModal}
