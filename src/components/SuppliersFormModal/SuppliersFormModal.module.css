@@ -27,7 +27,7 @@
   font-weight: var(--fw-regular);
   font-size: var(--fs-12);
   line-height: 1.5;
-  color: var(--placeholder);
+  color: rgba(29, 30, 33, 0.4);
 }
 
 .select {
@@ -51,7 +51,7 @@
   font-weight: var(--fw-regular);
   font-size: var(--fs-12);
   line-height: 1.5;
-  color: var(--placeholder);
+  color: rgba(29, 30, 33, 0.4);
 
   text-align: left;
   cursor: pointer;

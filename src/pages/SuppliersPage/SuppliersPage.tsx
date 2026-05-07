@@ -11,44 +11,58 @@ import { Pagination } from "../../components/Pagination/Pagination";
 import Modal from "../../components/Modal/Modal";
 import { SupplierFormModal } from "../../components/SuppliersFormModal/SuppliersFormModal";
 
+const formatDateView = (date?: string) => {
+  if (!date) return "";
+
+  return new Date(date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+};
+
 export const SuppliersPage = () => {
   const [data, setData] = useState<SupplierDataPagination | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [inputValue, setInputValue] = useState("");
   const [appliedName, setAppliedName] = useState("");
-
   const [modalType, setModalType] = useState<"create" | "edit" | null>(null);
-
-  const openCreate = () => {
-    setSelectedSupplier(null);
-    setModalType("create");
-  };
-
-  const openEdit = (product: SupplierDataItem) => {
-    setSelectedSupplier(product);
-    setModalType("edit");
-  };
-
-  const closeModal = () => setModalType(null);
-
   const [selectedSupplier, setSelectedSupplier] =
-    useState<null | SupplierDataItem>(null);
+    useState<SupplierDataItem | null>(null);
 
   const fetchData = useCallback(async () => {
     setIsLoading(true);
+
     try {
-      const data = await getSuppliers(currentPage, appliedName);
-      setData(data);
+      const suppliers = await getSuppliers(currentPage, appliedName);
+      setData(suppliers);
     } catch (error: unknown) {
       console.log(error);
     } finally {
       setIsLoading(false);
     }
   }, [currentPage, appliedName]);
+
   useEffect(() => {
     fetchData();
   }, [fetchData]);
+
+  const openCreate = () => {
+    setSelectedSupplier(null);
+    setModalType("create");
+  };
+
+  const openEdit = (supplier: SupplierDataItem) => {
+    setSelectedSupplier(supplier);
+    setModalType("edit");
+  };
+
+  const closeModal = () => {
+    setModalType(null);
+    setSelectedSupplier(null);
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setAppliedName(inputValue);
@@ -65,6 +79,7 @@ export const SuppliersPage = () => {
           setInputValue={setInputValue}
           onSubmit={handleSubmit}
         />
+
         <div className={css.suppliersPage_modal_container}>
           <button
             type="button"
@@ -73,31 +88,25 @@ export const SuppliersPage = () => {
           >
             <p className={css.suppliersPage_text_modal}>Add a new suppliers</p>
           </button>
+
           {modalType && (
             <Modal onClose={closeModal}>
-              {modalType === "create" && (
-                <SupplierFormModal
-                  modalType="create"
-                  selectedSupplier={null}
-                  onClose={closeModal}
-                  refetchSuppliers={fetchData}
-                />
-              )}
-              {modalType === "edit" && (
-                <SupplierFormModal
-                  modalType={modalType}
-                  selectedSupplier={selectedSupplier}
-                  onClose={closeModal}
-                  refetchSuppliers={fetchData}
-                />
-              )}
+              <SupplierFormModal
+                modalType={modalType}
+                selectedSupplier={
+                  modalType === "edit" ? selectedSupplier : null
+                }
+                onClose={closeModal}
+                refetchSuppliers={fetchData}
+              />
             </Modal>
           )}
         </div>
       </div>
 
       <table className={css.suppliersPage_table}>
-        <caption>All orders</caption>
+        <caption>All suppliers</caption>
+
         <thead>
           <tr>
             <th>Suppliers Info</th>
@@ -109,6 +118,7 @@ export const SuppliersPage = () => {
             <th>Action</th>
           </tr>
         </thead>
+
         <tbody>
           {data?.data.map((item) => {
             const isActive = item.status === "Active";
@@ -118,21 +128,25 @@ export const SuppliersPage = () => {
                 <td>{item.name}</td>
                 <td>{item.address}</td>
                 <td>{item.suppliers}</td>
-                <td>{item.date}</td>
+                <td>{formatDateView(item.date)}</td>
                 <td>{item.amount.replace(/[^\d.,-]/g, "")}</td>
+
                 <td>
                   <p className={isActive ? css.active : css.deactive}>
-                    {isActive ? "Active" : "Deactive"}
+                    {item.status}
                   </p>
                 </td>
+
                 <td>
                   <button
+                    type="button"
                     className={css.suppliersPage_modal_btn_edit}
                     onClick={() => openEdit(item)}
                   >
                     <svg className={css.suppliersPage_modal_edit_svg}>
                       <use href="/sprite.svg#icon-edit"></use>
                     </svg>
+
                     <p className={css.suppliersPage_modal_btn_edit_text}>
                       Edit
                     </p>

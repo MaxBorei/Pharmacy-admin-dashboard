@@ -3,6 +3,22 @@ import { createSupplier, updateSupplier } from "../../lib/suppliers";
 import type { SupplierDataItem } from "../../lib/types/Suppliers";
 import css from "./SuppliersFormModal.module.css";
 
+const options = ["Active", "Deactive"];
+
+const formatDateForBackend = (date: string) => {
+  return new Date(date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+};
+
+const formatDateForInput = (date?: string) => {
+  if (!date) return new Date().toISOString().split("T")[0];
+
+  return new Date(date).toISOString().split("T")[0];
+};
+
 type SupplierFormModalProps = {
   modalType: "create" | "edit";
   selectedSupplier: SupplierDataItem | null;
@@ -16,23 +32,30 @@ export const SupplierFormModal = ({
   onClose,
   refetchSuppliers,
 }: SupplierFormModalProps) => {
+  const [value, setValue] = useState(selectedSupplier?.status ?? "Active");
+  const [isOpen, setIsOpen] = useState(false);
+
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     const formData = new FormData(e.currentTarget);
 
     const name = formData.get("name") as string;
     const address = formData.get("address") as string;
     const suppliers = formData.get("suppliers") as string;
-    const date = formData.get("date") as string;
+    const date = formatDateForBackend(formData.get("date") as string);
     const amount = formData.get("amount") as string;
     const status = formData.get("status") as string;
-    const id = Date.now().toString();
     const supplierId = selectedSupplier?._id;
 
-    const payload =
-      modalType === "create"
-        ? { id, name, address, date, amount, suppliers, status }
-        : { name, address, date, suppliers, amount, status };
+    const payload = {
+      name,
+      address,
+      date,
+      amount,
+      suppliers,
+      status,
+    };
 
     if (modalType === "create") {
       await createSupplier(payload);
@@ -40,9 +63,10 @@ export const SupplierFormModal = ({
       if (!supplierId) return;
       await updateSupplier(supplierId, payload);
     }
+
+    await refetchSuppliers();
+    onClose();
   };
-  const [value, setValue] = useState(selectedSupplier?.status ?? "Active");
-  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div>
@@ -60,8 +84,44 @@ export const SupplierFormModal = ({
               defaultValue={selectedSupplier?.name ?? ""}
               placeholder="Suppliers Info"
             />
+
+            <input
+              className={css.input}
+              type="text"
+              name="address"
+              defaultValue={selectedSupplier?.address ?? ""}
+              placeholder="Address"
+            />
+          </div>
+
+          <div className={css.first_line_input_box}>
+            <input
+              className={css.input}
+              type="text"
+              name="suppliers"
+              defaultValue={selectedSupplier?.suppliers ?? ""}
+              placeholder="Company"
+            />
+
+            <input
+              className={css.input}
+              type="date"
+              name="date"
+              defaultValue={formatDateForInput(selectedSupplier?.date)}
+            />
+          </div>
+
+          <div className={css.first_line_input_box}>
+            <input
+              className={css.input}
+              type="text"
+              name="amount"
+              defaultValue={selectedSupplier?.amount ?? ""}
+              placeholder="Ammount"
+            />
+
             <div className={css.select}>
-              <input type="hidden" name="category" value={value} />
+              <input type="hidden" name="status" value={value} />
 
               <button
                 type="button"
@@ -69,9 +129,16 @@ export const SupplierFormModal = ({
                 onClick={() => setIsOpen(!isOpen)}
               >
                 <span>{value}</span>
+
                 <span>
                   <svg className={css.selectBtnSvg}>
-                    <use href="/sprite.svg#icon-arow"></use>
+                    <use
+                      href={
+                        isOpen
+                          ? "/sprite.svg#icon-arow-up"
+                          : "/sprite.svg#icon-arow-down"
+                      }
+                    />
                   </svg>
                 </span>
               </button>
@@ -82,7 +149,9 @@ export const SupplierFormModal = ({
                     <li key={option}>
                       <button
                         type="button"
-                        className={`${css.option} ${value === option ? css.activeOption : ""}`}
+                        className={`${css.option} ${
+                          value === option ? css.activeOption : ""
+                        }`}
                         onClick={() => {
                           setValue(option);
                           setIsOpen(false);
@@ -96,37 +165,13 @@ export const SupplierFormModal = ({
               )}
             </div>
           </div>
-
-          <div className={css.first_line_input_box}>
-            <input
-              className={css.input}
-              type="text"
-              name="stock"
-              defaultValue={selectedSupplier?.stock ?? ""}
-              placeholder="Stock"
-            />
-            <input
-              className={css.input}
-              type="text"
-              name="suppliers"
-              defaultValue={selectedSupplier?.suppliers ?? ""}
-              placeholder="Suppliers"
-            />
-          </div>
-
-          <input
-            className={css.input}
-            type="text"
-            name="price"
-            defaultValue={selectedSupplier?.price ?? ""}
-            placeholder="Price"
-          />
         </div>
 
         <div className={css.actions}>
           <button type="submit" className={css.btnSave}>
             Save
           </button>
+
           <button type="button" className={css.btnCancel} onClick={onClose}>
             Cancel
           </button>
